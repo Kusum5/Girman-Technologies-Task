@@ -5,8 +5,7 @@ import Image from 'next/image';
 import {
   Card,
   CardContent,
-  CardFooter,
-  CardHeader
+  CardHeader,
 } from '@/components/ui/card';
 import {
   Dialog,
