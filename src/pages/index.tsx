@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import Image from 'next/image';
 
 export default function Home() {
   const [query, setQuery] = useState<string>('');
@@ -19,28 +20,28 @@ export default function Home() {
       <header className="w-full p-4 bg-white shadow-md">
         <div className="flex justify-between items-center max-w-5xl mx-auto">
           <div className="flex item-center space-x-4">
-            <img src="/logo1.png" alt="Logo" className="logo-img w-12 h-12" />
+            <Image src="/logo1.png" alt="Logo" className="logo-img w-12 h-12" />
             <div className="flex flex-col">
               <div className="text-3xl font-bold">Girman</div>
               <p className="text-sm">TECHNOLOGIES</p>
             </div>
           </div>
           <div className="flex space-x-6">
-            <a href="/" className="text-blue-500 font-bold underline">SEARCH</a>
-            <a href="https://girmantech.com" className="text-black">WEBSITE</a>
-            <a href="https://www.linkedin.com/company/girmantech/posts/?feedView=all" className="text-black">LINKEDIN</a>
-            <a href="mailto:contact@girmantech.com" className="text-black">CONTACT</a>
+            <Link href="/"><a className="text-blue-500 font-bold underline">SEARCH</a></Link>
+            <Link href="https://girmantech.com"><a className="text-black">WEBSITE</a></Link>
+            <Link href="https://www.linkedin.com/company/girmantech/posts/?feedView=all"><a className="text-black">LINKEDIN</a></Link>
+            <Link href="mailto:contact@girmantech.com"><a className="text-black">CONTACT</a></Link>
           </div>
          </div>
       </header>
 
     <main className="flex flex-col items-center w-full max-w-xl">  {/* Reduced mt value */}
       <div className="flex mt-16 items-center space-x-4">
-        <img src="/logo.png" alt="Logo" className="logo-img w-25 h-20"/>
+        <Image src="/logo.png" alt="Logo" className="logo-img w-25 h-20"/>
         <h1 className="text-8xl mt-5 font-semibold">Girman</h1>
       </div>
     <form className="flex text-justify items-center space-x-4 bg-white mt-0  w-full p-2 rounded border">
-        <img src="/magnifying-glass.png" alt="Search Icon" className="w-5 h-5" />
+        <Image src="/magnifying-glass.png" alt="Search Icon" className="w-5 h-5" />
         <input
           type="text"
           value={query}
