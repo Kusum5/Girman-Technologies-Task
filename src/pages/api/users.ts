@@ -1,4 +1,3 @@
-// src/pages/api/users.ts
 import { NextApiRequest, NextApiResponse } from 'next';
 import users from '../../data/user_list.json';
 
@@ -16,11 +15,11 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<User[]
     return res.status(400).json({ message: 'Invalid query parameter' });
   }
 
-  const lowerCaseQuery = query.toLowerCase();  // Convert query to lowercase
+  const lowerCaseQuery = query.trim().toLowerCase();  // Ensure no leading/trailing spaces
 
   const filteredUsers = users.filter(user =>
-    user.first_name.toLowerCase().includes(lowerCaseQuery) ||  // Convert first_name to lowercase
-    user.last_name.toLowerCase().includes(lowerCaseQuery)      // Convert last_name to lowercase
+    user.first_name.toLowerCase().includes(lowerCaseQuery) ||
+    user.last_name.toLowerCase().includes(lowerCaseQuery)
   );
 
   if (filteredUsers.length === 0) {
@@ -29,3 +28,4 @@ export default function handler(req: NextApiRequest, res: NextApiResponse<User[]
 
   res.status(200).json(filteredUsers);
 }
+

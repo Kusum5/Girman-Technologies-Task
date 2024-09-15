@@ -1,18 +1,18 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Image from 'next/image';
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader
-} from "@/components/ui/card";
+} from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
   DialogTitle,
   DialogTrigger,
-} from "@/components/ui/dialog";
-import Image from 'next/image';
+} from '@/components/ui/dialog';
 
 type User = {
   first_name: string;
@@ -24,14 +24,14 @@ type User = {
 export default function SearchResults() {
   const router = useRouter();
   const { query } = router.query;
-  const [searchQuery, setSearchQuery] = useState<string>(query as string);
+  const [searchQuery, setSearchQuery] = useState<string>(query as string || '');
   const [results, setResults] = useState<User[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (query) {
-      fetch(`/api/users?query=${query}`)
+    if (searchQuery) {
+      fetch(`/api/users?query=${searchQuery}`)
         .then((res) => {
           if (!res.ok) throw new Error('No results found');
           return res.json();
@@ -45,8 +45,8 @@ export default function SearchResults() {
           setLoading(false);
         });
     }
-  }, [query]);  
-    
+  }, [searchQuery]);
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter' && searchQuery.trim()) {
       router.push(`/search?query=${searchQuery}`);
@@ -65,10 +65,11 @@ export default function SearchResults() {
               <p className="text-sm">TECHNOLOGIES</p>
             </div>
           </div>
-          <div className="flex items-center space-x-4 ">
-          <Image src="/magnifying-glass.png" width={10} height={10} alt="Search Icon" className="w-5 h-5" />
+          <div className="flex items-center space-x-4">
+            <Image src="/magnifying-glass.png" width={10} height={10} alt="Search Icon" className="w-5 h-5" />
             <input
               type="text"
+              value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Search"
@@ -101,14 +102,17 @@ export default function SearchResults() {
 function UserCard({ user }: { user: User }) {
   return (
     <Card className="border p-4">
-      <CardHeader>{user.first_name} {user.last_name}</CardHeader>
+      <CardHeader>
+        <Image src="/placeholder.png" width={100} height={100} alt="Placeholder Image" className="w-full h-48 object-cover" />
+        {user.first_name} {user.last_name}
+      </CardHeader>
       <CardContent>
         <p>City: {user.city}</p>
         <p>Contact: {user.contact_number}</p>
       </CardContent>
       <CardFooter>
         <Dialog>
-          <DialogTrigger>Fetch Details</DialogTrigger>
+          <DialogTrigger className="bg-blue-500 text-white p-2 rounded">Fetch Details</DialogTrigger>
           <DialogContent>
             <DialogTitle>User Details</DialogTitle>
             <p><strong>First Name:</strong> {user.first_name}</p>
