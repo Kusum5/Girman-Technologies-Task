@@ -1,4 +1,5 @@
 import { useRouter } from 'next/router';
+import { MapPinIcon, PhoneIcon } from '@heroicons/react/24/outline';
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import {
@@ -12,6 +13,7 @@ import {
   DialogContent,
   DialogTitle,
   DialogTrigger,
+  DialogClose,
 } from '@/components/ui/dialog';
 
 type User = {
@@ -65,14 +67,14 @@ export default function SearchResults() {
               <p className="text-sm">TECHNOLOGIES</p>
             </div>
           </div>
-          <div className="flex items-center space-x-4">
+          <div className="flex items-center space-x-4 border-gray-300">
             <Image src="/magnifying-glass.png" width={10} height={10} alt="Search Icon" className="w-5 h-5" />
             <input
               type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Search"
-              className="p-2 rounded w-80 outline-none focus:ring-0 text-gray-500"
+              className="p-2 rounded w-80 text-gray-500"
             />
           </div>
         </div>
@@ -100,39 +102,57 @@ export default function SearchResults() {
 
 function UserCard({ user }: { user: User }) {
   return (
-    <Card className="border p-4">
-      <CardHeader>
-        <Image src="/placeholder.png" width={60} height={60} alt="Placeholder Image" className="rounded-full object-cover opacity-100" />
-        <h2 className="text-2xl">{user.first_name} {user.last_name}</h2>
-        <p className='text-gray-500 text-sm'>{user.city}</p>
-      </CardHeader>
-      <CardContent>
-        <hr className="my-2 border-gray-300" /> 
+    <Card>
+  <CardHeader>
+    <Image src="/placeholder.png" width={60} height={60} alt="Placeholder Image" className="rounded-full object-cover opacity-100" />
+    <h2 className="text-2xl">{user.first_name} {user.last_name}</h2>
+    <div className="flex items-center space-x-2">
+        <MapPinIcon className="w-5 h-5 text-gray-500" />
+        <p className="text-gray-500 text-sm">{user.city}</p>
+      </div>
+  </CardHeader>
+  <CardContent className="flex items-center justify-between">
+    <div className="flex flex-col">
+      <hr className=" border-gray-300 py-2 w-full" />
+      <div className="flex items-center space-x-2">
+        <PhoneIcon className="w-5 h-5 text-gray-500" />
         <p>{user.contact_number}</p>
-        <p className='text-gray-400 text-sm'>Available on phone</p>
-      </CardContent>
-      <CardFooter className='pd-0'>
-        <Dialog>
-        <DialogTrigger asChild>
-          <button className="bg-black text-white p-2 rounded hover:bg-gray-700 transition-colors">
-            Fetch Details
-          </button>
-        </DialogTrigger>
-        <DialogContent className="bg-white text-black p-6 rounded-lg shadow-lg">
+      </div>
+      <p className="text-gray-400 text-sm">Available on phone</p>
+    </div>
+    <Dialog>
+      <DialogTrigger asChild>
+        <button className="bg-black text-white p-2 rounded hover:bg-gray-700 transition-colors">
+          Fetch Details
+        </button>
+      </DialogTrigger>
+
+      {/* DialogContent */}
+      <DialogContent className="bg-white text-black p-6 rounded-lg shadow-lg">
         <DialogTitle className="text-2xl font-bold">Fetch Details</DialogTitle>
-        <p className=' text-gray-400'>Here are the details of the following employee.</p>
-        <p>Name: {user.first_name} {user.last_name}</p>
-        <p>Location: {user.city}</p>
-        <p>Contact Number: {user.contact_number}</p>
+        <p className="text-gray-400">Here are the details of the following employee.</p>
+        <p><strong>Name:</strong> {user.first_name} {user.last_name}</p>
+        <p><strong>Location:</strong> {user.city}</p>
+        <p><strong>Contact Number:</strong> {user.contact_number}</p>
+        <p className='font-semibold'>Profile Image:</p>
+        {/* Placeholder Image */}
         <Image
-      src="/placeholder.png" // Placeholder image path
-      alt="User Placeholder"
-      width={300}
-      height={300}
-    />
-       </DialogContent>
-        </Dialog>
-      </CardFooter>
-    </Card>
+          src="/placeholder.png"
+          alt="User Placeholder"
+          width={220}
+          height={220}
+          className="mt-2"
+        />
+
+        {/* Close Button using DialogClose */}
+        <DialogClose asChild>
+          <button className="absolute bottom-4 right-4 border border-gray-300 px-2 w-16 h-10 rounded hover:bg-gray-100 transition-colors">
+            Close
+          </button>
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
+  </CardContent>
+</Card>
   );
 }
