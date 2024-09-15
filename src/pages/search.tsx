@@ -33,7 +33,7 @@ export default function SearchResults() {
     if (searchQuery) {
       fetch(`/api/users?query=${searchQuery}`)
         .then((res) => {
-          if (!res.ok) throw new Error('No results found');
+          if (!res.ok) throw new Error('No results found.');
           return res.json();
         })
         .then((data) => {
@@ -69,7 +69,6 @@ export default function SearchResults() {
             <Image src="/magnifying-glass.png" width={10} height={10} alt="Search Icon" className="w-5 h-5" />
             <input
               type="text"
-              value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               onKeyDown={handleKeyDown}
               placeholder="Search"
