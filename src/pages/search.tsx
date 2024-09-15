@@ -102,23 +102,35 @@ function UserCard({ user }: { user: User }) {
   return (
     <Card className="border p-4">
       <CardHeader>
-        <Image src="/placeholder.png" width={100} height={100} alt="Placeholder Image" className="w-full h-48 object-cover" />
-        {user.first_name} {user.last_name}
+        <Image src="/placeholder.png" width={60} height={60} alt="Placeholder Image" className="rounded-full object-cover opacity-100" />
+        <h2 className="text-2xl">{user.first_name} {user.last_name}</h2>
+        <p className='text-gray-500 text-sm'>{user.city}</p>
       </CardHeader>
       <CardContent>
-        <p>City: {user.city}</p>
-        <p>Contact: {user.contact_number}</p>
+        <hr className="my-2 border-gray-300" /> 
+        <p>{user.contact_number}</p>
+        <p className='text-gray-400 text-sm'>Available on phone</p>
       </CardContent>
-      <CardFooter>
+      <CardFooter className='pd-0'>
         <Dialog>
-          <DialogTrigger className="bg-blue-500 text-white p-2 rounded">Fetch Details</DialogTrigger>
-          <DialogContent>
-            <DialogTitle>User Details</DialogTitle>
-            <p><strong>First Name:</strong> {user.first_name}</p>
-            <p><strong>Last Name:</strong> {user.last_name}</p>
-            <p><strong>City:</strong> {user.city}</p>
-            <p><strong>Contact:</strong> {user.contact_number}</p>
-          </DialogContent>
+        <DialogTrigger asChild>
+          <button className="bg-black text-white p-2 rounded hover:bg-gray-700 transition-colors">
+            Fetch Details
+          </button>
+        </DialogTrigger>
+        <DialogContent className="bg-white text-black p-6 rounded-lg shadow-lg">
+        <DialogTitle className="text-2xl font-bold">Fetch Details</DialogTitle>
+        <p className=' text-gray-400'>Here are the details of the following employee.</p>
+        <p>Name: {user.first_name} {user.last_name}</p>
+        <p>Location: {user.city}</p>
+        <p>Contact Number: {user.contact_number}</p>
+        <Image
+      src="/placeholder.png" // Placeholder image path
+      alt="User Placeholder"
+      width={300}
+      height={300}
+    />
+       </DialogContent>
         </Dialog>
       </CardFooter>
     </Card>
