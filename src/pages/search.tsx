@@ -59,14 +59,14 @@ export default function SearchResults() {
       <header className="w-full p-4 bg-white shadow-md">
         <div className="flex justify-between items-center max-w-5xl mx-auto">
           <div className="flex items-center space-x-4">
-            <img src="/logo1.png" width={256} height={256} alt="Logo" className="logo-img w-12 h-12" />
+            <Image src="/logo1.png" width={130} height={130} alt="Logo" className="logo-img w-12 h-12" />
             <div className="flex flex-col">
               <div className="text-3xl font-bold">Girman</div>
               <p className="text-sm">TECHNOLOGIES</p>
             </div>
           </div>
           <div className="flex items-center space-x-4 ">
-          <img src="/magnifying-glass.png" alt="Search Icon" className="w-5 h-5" />
+          <Image src="/magnifying-glass.png" width={10} height={10} alt="Search Icon" className="w-5 h-5" />
             <input
               type="text"
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -83,7 +83,7 @@ export default function SearchResults() {
           <p>Loading...</p>
         ) : error ? (
           <div className="flex flex-col items-center">
-            <img src="/not-found.png" alt="Not found" className="w-64 mt-10" />
+            <Image src="/not-found.png" alt="Not found" width={130} height={130} className="w-64 mt-10" />
             <p>{error}</p>
           </div>
         ) : (
