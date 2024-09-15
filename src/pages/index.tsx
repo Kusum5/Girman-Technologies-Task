@@ -35,7 +35,7 @@ export default function Home() {
          </div>
       </header>
 
-    <main className="flex flex-col items-center w-full max-w-xl">  {/* Reduced mt value */}
+    <main className="flex flex-col items-center w-full max-w-xl">  
       <div className="flex mt-16 items-center space-x-4">
         <Image src="/logo.png" alt="Logo" width={130} height={130}/>
         <h1 className="text-8xl">Girman</h1>
